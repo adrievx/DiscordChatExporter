@@ -15,7 +15,7 @@ public partial class SettingsService
 
         private static readonly Lazy<byte[]> Key = new(() =>
             Rfc2898DeriveBytes.Pbkdf2(
-                Encoding.UTF8.GetBytes(Environment.TryGetMachineId() ?? string.Empty),
+                Encoding.UTF8.GetBytes(EnvironmentExtensions.TryGetMachineId() ?? string.Empty),
                 Encoding.UTF8.GetBytes(ThisAssembly.Project.EncryptionSalt),
                 600_000,
                 HashAlgorithmName.SHA256,

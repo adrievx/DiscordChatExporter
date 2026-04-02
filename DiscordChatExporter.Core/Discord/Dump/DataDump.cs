@@ -41,7 +41,7 @@ public partial class DataDump
         CancellationToken cancellationToken = default
     )
     {
-        await using var archive = await ZipFile.OpenReadAsync(zipFilePath, cancellationToken);
+        using var archive = ZipFile.OpenRead(zipFilePath);
 
         // Use case-insensitive search to accommodate for different data dump versions
         // https://github.com/Tyrrrz/DiscordChatExporter/issues/1459
@@ -53,7 +53,7 @@ public partial class DataDump
                 "Failed to locate the channel index inside the data package."
             );
 
-        await using var stream = await entry.OpenAsync(cancellationToken);
+        using var stream = entry.Open();
         using var document = await JsonDocument.ParseAsync(stream, default, cancellationToken);
 
         return Parse(document.RootElement);

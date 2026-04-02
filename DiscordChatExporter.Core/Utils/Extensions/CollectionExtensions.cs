@@ -4,37 +4,28 @@ namespace DiscordChatExporter.Core.Utils.Extensions;
 
 public static class CollectionExtensions
 {
-    extension<T>(T obj)
+    public static IEnumerable<T> ToSingletonEnumerable<T>(this T obj)
     {
-        public IEnumerable<T> ToSingletonEnumerable()
-        {
-            yield return obj;
-        }
+        yield return obj;
     }
 
-    extension<T>(IEnumerable<T?> source)
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
         where T : class
     {
-        public IEnumerable<T> WhereNotNull()
+        foreach (var o in source)
         {
-            foreach (var o in source)
-            {
-                if (o is not null)
-                    yield return o;
-            }
+            if (o is not null)
+                yield return o;
         }
     }
 
-    extension<T>(IEnumerable<T?> source)
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
         where T : struct
     {
-        public IEnumerable<T> WhereNotNull()
+        foreach (var o in source)
         {
-            foreach (var o in source)
-            {
-                if (o is not null)
-                    yield return o.Value;
-            }
+            if (o is not null)
+                yield return o.Value;
         }
     }
 }

@@ -127,12 +127,6 @@ public partial class LocalizationManager
             [nameof(CloseButton)] = "ЗАКРИТИ",
             [nameof(CancelButton)] = "СКАСУВАТИ",
             // Dialog messages
-            [nameof(UkraineSupportTitle)] = "Дякуємо за підтримку України!",
-            [nameof(UkraineSupportMessage)] = """
-                Поки Росія веде геноцидну війну проти моєї країни, я вдячний кожному, хто продовжує підтримувати Україну у нашій боротьбі за свободу.
-
-                Натисніть ДІЗНАТИСЬ БІЛЬШЕ, щоб знайти способи допомогти.
-                """,
             [nameof(LearnMoreButton)] = "ДІЗНАТИСЬ БІЛЬШЕ",
             [nameof(UnstableBuildTitle)] = "Попередження про нестабільну збірку",
             [nameof(UnstableBuildMessage)] = """

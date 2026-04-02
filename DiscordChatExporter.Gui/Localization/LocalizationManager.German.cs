@@ -133,12 +133,6 @@ public partial class LocalizationManager
         [nameof(CloseButton)] = "SCHLIESSEN",
         [nameof(CancelButton)] = "ABBRECHEN",
         // Dialog messages
-        [nameof(UkraineSupportTitle)] = "Danke für Ihre Unterstützung der Ukraine!",
-        [nameof(UkraineSupportMessage)] = """
-            Während Russland einen Vernichtungskrieg gegen mein Land führt, bin ich jedem dankbar, der weiterhin an der Seite der Ukraine in unserem Kampf für die Freiheit steht.
-
-            Klicken Sie auf MEHR ERFAHREN, um Möglichkeiten der Unterstützung zu finden.
-            """,
         [nameof(LearnMoreButton)] = "MEHR ERFAHREN",
         [nameof(UnstableBuildTitle)] = "Warnung: Instabile Version",
         [nameof(UnstableBuildMessage)] = """

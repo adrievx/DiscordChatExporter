@@ -19,6 +19,7 @@
 
   <PropertyGroup>
     <PublishMacOSBundle>false</PublishMacOSBundle>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

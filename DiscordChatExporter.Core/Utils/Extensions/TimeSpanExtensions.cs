@@ -4,17 +4,14 @@ namespace DiscordChatExporter.Core.Utils.Extensions;
 
 public static class TimeSpanExtensions
 {
-    extension(TimeSpan value)
+    public static TimeSpan Clamp(this TimeSpan value, TimeSpan min, TimeSpan max)
     {
-        public TimeSpan Clamp(TimeSpan min, TimeSpan max)
-        {
-            if (value < min)
-                return min;
+        if (value < min)
+            return min;
 
-            if (value > max)
-                return max;
+        if (value > max)
+            return max;
 
-            return value;
-        }
+        return value;
     }
 }

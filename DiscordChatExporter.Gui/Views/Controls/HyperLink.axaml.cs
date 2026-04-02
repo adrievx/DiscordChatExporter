@@ -59,7 +59,7 @@ public partial class HyperLink : UserControl
         }
         else if (!string.IsNullOrWhiteSpace(Url))
         {
-            Process.StartShellExecute(Url);
+            ProcessExtensions.StartShellExecute(Url);
         }
     }
 }

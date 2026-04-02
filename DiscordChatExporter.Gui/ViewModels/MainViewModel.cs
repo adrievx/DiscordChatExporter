@@ -24,26 +24,6 @@ public partial class MainViewModel(
 
     public DashboardViewModel Dashboard { get; } = viewModelManager.CreateDashboardViewModel();
 
-    private async Task ShowUkraineSupportMessageAsync()
-    {
-        if (!settingsService.IsUkraineSupportMessageEnabled)
-            return;
-
-        var dialog = viewModelManager.CreateMessageBoxViewModel(
-            localizationManager.UkraineSupportTitle,
-            localizationManager.UkraineSupportMessage,
-            localizationManager.LearnMoreButton,
-            localizationManager.CloseButton
-        );
-
-        // Disable this message in the future
-        settingsService.IsUkraineSupportMessageEnabled = false;
-        settingsService.Save();
-
-        if (await dialogManager.ShowDialogAsync(dialog) == true)
-            Process.StartShellExecute("https://tyrrrz.me/ukraine?source=discordchatexporter");
-    }
-
     private async Task ShowDevelopmentBuildMessageAsync()
     {
         if (!Program.IsDevelopmentBuild)
@@ -61,7 +41,7 @@ public partial class MainViewModel(
         );
 
         if (await dialogManager.ShowDialogAsync(dialog) == true)
-            Process.StartShellExecute(Program.ProjectReleasesUrl);
+            ProcessExtensions.StartShellExecute(Program.ProjectReleasesUrl);
     }
 
     private async Task CheckForUpdatesAsync()
@@ -103,7 +83,6 @@ public partial class MainViewModel(
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        await ShowUkraineSupportMessageAsync();
         await ShowDevelopmentBuildMessageAsync();
         await CheckForUpdatesAsync();
     }

@@ -4,31 +4,27 @@ namespace DiscordChatExporter.Core.Utils.Extensions;
 
 public static class StringExtensions
 {
-    extension(string str)
+    public static string? NullIfWhiteSpace(this string str) =>
+        !string.IsNullOrWhiteSpace(str) ? str : null;
+
+    public static string Truncate(this string str, int charCount) =>
+        str.Length > charCount ? str[..charCount] : str;
+
+    public static string ToSpaceSeparatedWords(this string str)
     {
-        public string? NullIfWhiteSpace() => !string.IsNullOrWhiteSpace(str) ? str : null;
+        var builder = new StringBuilder(str.Length * 2);
 
-        public string Truncate(int charCount) => str.Length > charCount ? str[..charCount] : str;
-
-        public string ToSpaceSeparatedWords()
+        foreach (var c in str)
         {
-            var builder = new StringBuilder(str.Length * 2);
+            if (char.IsUpper(c) && builder.Length > 0)
+                builder.Append(' ');
 
-            foreach (var c in str)
-            {
-                if (char.IsUpper(c) && builder.Length > 0)
-                    builder.Append(' ');
-
-                builder.Append(c);
-            }
-
-            return builder.ToString();
+            builder.Append(c);
         }
+
+        return builder.ToString();
     }
 
-    extension(StringBuilder builder)
-    {
-        public StringBuilder AppendIfNotEmpty(char value) =>
-            builder.Length > 0 ? builder.Append(value) : builder;
-    }
+    public static StringBuilder AppendIfNotEmpty(this StringBuilder builder, char value) =>
+        builder.Length > 0 ? builder.Append(value) : builder;
 }

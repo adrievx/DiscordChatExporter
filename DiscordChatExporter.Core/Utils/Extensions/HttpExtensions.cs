@@ -4,9 +4,6 @@ namespace DiscordChatExporter.Core.Utils.Extensions;
 
 public static class HttpExtensions
 {
-    extension(HttpHeaders headers)
-    {
-        public string? TryGetValue(string name) =>
-            headers.TryGetValues(name, out var values) ? string.Concat(values) : null;
-    }
+    public static string? TryGetValue(this HttpHeaders headers, string name) =>
+        headers.TryGetValues(name, out var values) ? string.Concat(values) : null;
 }

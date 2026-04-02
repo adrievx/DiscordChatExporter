@@ -148,7 +148,7 @@ public partial class ExportRequest
         // File extension
         buffer.Append('.').Append(format.GetFileExtension());
 
-        return Path.EscapeFileName(buffer.ToString());
+        return PathExtensions.EscapeFileName(buffer.ToString());
     }
 
     private static string FormatPath(
@@ -162,7 +162,7 @@ public partial class ExportRequest
             path,
             "%.",
             m =>
-                Path.EscapeFileName(
+                PathExtensions.EscapeFileName(
                     m.Value switch
                     {
                         "%g" => guild.Id.ToString(),
