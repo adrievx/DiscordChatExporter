@@ -38,7 +38,8 @@ internal class PlainTextMessageWriter(Stream stream, ExportContext context)
 
     private async ValueTask WriteAttachmentsAsync(
         IReadOnlyList<Attachment> attachments,
-        CancellationToken cancellationToken = default
+        CancellationToken cancellationToken = default,
+        DateTime messageSent = default
     )
     {
         if (!attachments.Any())
@@ -51,7 +52,7 @@ internal class PlainTextMessageWriter(Stream stream, ExportContext context)
             cancellationToken.ThrowIfCancellationRequested();
 
             await _writer.WriteLineAsync(
-                await Context.ResolveAssetUrlAsync(attachment.Url, cancellationToken)
+                await Context.ResolveAssetUrlAsync(attachment.Url, cancellationToken, messageSent)
             );
         }
 
@@ -243,7 +244,11 @@ internal class PlainTextMessageWriter(Stream stream, ExportContext context)
             $"Originally sent: {Context.FormatDate(forwardedMessage.Timestamp)}"
         );
 
-        await WriteAttachmentsAsync(forwardedMessage.Attachments, cancellationToken);
+        await WriteAttachmentsAsync(
+            forwardedMessage.Attachments,
+            cancellationToken,
+            forwardedMessage.Timestamp.LocalDateTime
+        );
         await WriteEmbedsAsync(forwardedMessage.Embeds, cancellationToken);
         await WriteStickersAsync(forwardedMessage.Stickers, cancellationToken);
 
@@ -281,7 +286,11 @@ internal class PlainTextMessageWriter(Stream stream, ExportContext context)
         }
 
         // Attachments, embeds, reactions, etc.
-        await WriteAttachmentsAsync(message.Attachments, cancellationToken);
+        await WriteAttachmentsAsync(
+            message.Attachments,
+            cancellationToken,
+            message.Timestamp.LocalDateTime
+        );
         await WriteEmbedsAsync(message.Embeds, cancellationToken);
         await WriteStickersAsync(message.Stickers, cancellationToken);
         await WriteReactionsAsync(message.Reactions, cancellationToken);

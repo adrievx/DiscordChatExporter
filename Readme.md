@@ -17,6 +17,7 @@ This fork adds some additional features, removes all of the political bloat and 
 ## My Additions
 - Removed political bloat
 - .NET 9 backport
+- **Attachments will now save the proper last modified date like they used to**
 
 ## Screenshots
 

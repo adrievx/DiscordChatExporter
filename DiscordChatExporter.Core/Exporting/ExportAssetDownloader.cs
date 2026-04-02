@@ -22,7 +22,8 @@ internal partial class ExportAssetDownloader(string workingDirPath, bool reuse)
 
     public async ValueTask<string> DownloadAsync(
         string url,
-        CancellationToken cancellationToken = default
+        CancellationToken cancellationToken = default,
+        DateTime modified = default
     )
     {
         var fileName = GetFileNameFromUrl(url);
@@ -68,6 +69,14 @@ internal partial class ExportAssetDownloader(string workingDirPath, bool reuse)
                 using var response = await Http.Client.GetAsync(url, innerCancellationToken);
                 await using var output = File.Create(filePath);
                 await response.Content.CopyToAsync(output, innerCancellationToken);
+
+                // Set last modified date
+                var lastModified =
+                    modified != default(DateTime)
+                        ? modified
+                        : response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.UtcNow;
+
+                File.SetLastWriteTimeUtc(filePath, lastModified);
             },
             cancellationToken
         );
